@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Techno Hacks #1</title>
+<meta name="description" content="Techno Hacks #1 · Saturday 21 November · DTU Skylab. Everything you need for the day.">
+<meta property="og:title" content="Techno Hacks #1">
+<meta property="og:description" content="Saturday 21 November · DTU Skylab. Idea → prototype → pitch in a day.">
+<meta property="og:image" content="og.png">
+<meta name="theme-color" content="#12081A">
+<link rel="icon" href="th-logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #12081A;
+  --bg-2: #1A0D25;
+  --card: #211030;
+  --card-2: #2A1540;
+  --line: rgba(211,175,232,.16);
+  --purple: #79248E;
+  --lime: #D5FA39;
+  --lilac: #D3AFE8;
+  --text: #F4EEF8;
+  --text-2: #CDBFD8;
+  --muted: #9C8BAA;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif; font-size: 17px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+/* starfield + purple nebula, like the Luma page */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(1.2px 1.2px at 12% 18%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 72%, #fff6 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 46% 34%, #fff7 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 82%, #fff5 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 78% 12%, #fff8 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 58%, #fff6 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 6% 88%, #fff6 50%, transparent 51%),
+    radial-gradient(1px 1px at 53% 6%, #fff5 50%, transparent 51%),
+    radial-gradient(1px 1px at 94% 92%, #fff5 50%, transparent 51%),
+    radial-gradient(1px 1px at 36% 48%, #fff4 50%, transparent 51%),
+    radial-gradient(60% 50% at 85% 10%, rgba(121,36,142,.45), transparent 70%),
+    radial-gradient(50% 45% at 5% 60%, rgba(121,36,142,.30), transparent 70%),
+    var(--bg);
+}
+a { color: var(--lime); text-underline-offset: 3px; }
+b { font-weight: 600; color: var(--text); }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+.label { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--lilac); }
+.tbc { background: #FFE66B; color: #3a2e00; border-radius: 4px; padding: 0 5px; font-size: .8em; font-weight: 700; font-family: 'Inter', sans-serif; letter-spacing: 0; text-transform: none; }
+
+/* ---------- Top bar ---------- */
+.bar { position: sticky; top: 0; z-index: 10; background: rgba(18,8,26,.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 58px; }
+.bar img { width: 34px; height: 34px; border-radius: 8px; display: block; }
+.bar nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.bar nav::-webkit-scrollbar { display: none; }
+.bar nav a { flex: none; color: var(--text-2); text-decoration: none; font-weight: 500; font-size: 14.5px; padding: 7px 11px; border-radius: 8px; }
+.bar nav a:hover { color: var(--text); background: rgba(255,255,255,.07); }
+
+/* ---------- Hero ---------- */
+.hero { padding: 64px 0 24px; text-align: center; position: relative; }
+.eyebrow { font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
+.eyebrow span { color: var(--lime); }
+h1 { font-weight: 800; font-size: clamp(56px, 12vw, 108px); line-height: .9; letter-spacing: -.04em; margin-top: 20px; }
+h1 em { font-style: normal; color: var(--lime); }
+.lede { color: var(--lime); font-size: clamp(19px, 3vw, 24px); font-weight: 500; margin-top: 16px; }
+.hero-star { position: absolute; width: 150px; height: 150px; right: 6%; top: 70px; opacity: .9; }
+.hero-star path { fill: none; stroke: var(--lilac); stroke-width: .6; vector-effect: non-scaling-stroke; }
+.hero-star rect { fill: var(--lime); }
+
+/* Event facts card (like Luma's date / place rows) */
+.facts { margin: 36px auto 0; max-width: 620px; display: grid; grid-template-columns: 1fr 1fr; text-align: left; background: rgba(33,16,48,.75); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.fact { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; padding: 16px 18px; }
+.fact + .fact { border-left: 1px solid var(--line); }
+.ico { width: 44px; height: 44px; border-radius: 12px; background: var(--card-2); border: 1px solid var(--line); display: grid; place-items: center; font-size: 19px; }
+.ico.cal { display: flex; flex-direction: column; overflow: hidden; font-size: 0; }
+.ico.cal span:first-child { background: var(--purple); color: #fff; font: 700 9px/1 'Inter'; text-transform: uppercase; letter-spacing: .06em; padding: 4px 0 3px; width: 100%; text-align: center; }
+.ico.cal span:last-child { font: 700 17px/1 'Inter'; color: var(--text); padding-top: 5px; }
+.fact b { display: block; font-size: 16px; }
+.fact small { color: var(--text-2); font-size: 14.5px; }
+.fact small a { font-weight: 600; }
+.ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 26px; }
+.btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 16px; padding: 13px 22px; border-radius: 12px; }
+.btn.primary { background: var(--lime); color: #17121C; }
+.btn.ghost { color: var(--text); border: 1px solid rgba(255,255,255,.3); }
+.btn:hover { filter: brightness(1.08); }
+
+/* ---------- Sections ---------- */
+section { padding: 76px 0 0; }
+h2 { font-weight: 800; font-size: clamp(30px, 5vw, 42px); line-height: 1.08; letter-spacing: -.03em; margin-top: 8px; }
+h2 em { font-style: normal; color: var(--lime); }
+.intro { color: var(--text-2); margin-top: 10px; max-width: 600px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+
+.aside-note { margin-top: 14px; color: var(--text-2); font-size: 15.5px; }
+
+/* Welcome */
+.welcome { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; margin-top: 26px; }
+.welcome-main { padding: 24px; display: grid; gap: 12px; align-content: center; color: var(--text-2); }
+.welcome-main .big { font-size: 20px; line-height: 1.4; color: var(--text); font-weight: 600; letter-spacing: -.01em; }
+.welcome-side { display: grid; gap: 12px; }
+.mini { padding: 18px 20px; }
+.mini p { color: var(--text-2); font-size: 15.5px; margin-top: 6px; }
+@media (max-width: 760px) { .welcome { grid-template-columns: 1fr; } }
+
+/* Before you come: 3 steps */
+.steps3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+.step { padding: 20px; }
+.step .n { width: 32px; height: 32px; border-radius: 50%; background: var(--lime); color: #17121C; font-weight: 800; display: grid; place-items: center; font-size: 15px; }
+.step h3 { font-size: 18px; font-weight: 700; margin-top: 14px; line-height: 1.25; }
+.step p { color: var(--text-2); font-size: 15.5px; margin-top: 6px; }
+
+/* Your day: journey timeline */
+.journey { list-style: none; margin-top: 30px; position: relative; }
+.journey::before { content: ""; position: absolute; left: 27px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(var(--lime), var(--purple) 60%, var(--lime)); opacity: .55; }
+.moment { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 18px; padding-bottom: 14px; }
+.moment .dot { width: 56px; height: 56px; border-radius: 50%; background: var(--card-2); border: 1px solid var(--line); display: grid; place-items: center; font-size: 22px; position: relative; z-index: 1; }
+.moment .content { padding: 16px 20px; }
+.moment .time { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--lime); font-size: 14px; }
+.moment h3 { font-size: 20px; font-weight: 700; margin-top: 2px; letter-spacing: -.01em; }
+.moment p { color: var(--text-2); font-size: 15.5px; margin-top: 6px; }
+.moment .sub { margin-top: 12px; display: grid; gap: 6px; list-style: none; }
+.moment .sub li { font-size: 15px; color: var(--text-2); display: grid; grid-template-columns: 52px 1fr; gap: 8px; }
+.moment .sub li span { font-family: 'Space Mono', monospace; color: var(--lilac); font-size: 13px; padding-top: 2px; }
+.moment.key .content { border-color: rgba(213,250,57,.45); background: linear-gradient(180deg, rgba(213,250,57,.07), transparent 70%), var(--card); }
+.moment.key .dot { background: var(--lime); border-color: var(--lime); }
+.team-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.team-flow div { background: var(--card-2); border-radius: 10px; padding: 10px 12px; font-size: 14.5px; color: var(--text-2); }
+.team-flow b { display: block; font-size: 14.5px; }
+.moment .tip { margin-top: 10px; font-size: 15px; }
+.pitchflow { list-style: none; counter-reset: p; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.pitchflow li { counter-increment: p; background: var(--card-2); border-radius: 10px; padding: 10px 12px; font-size: 14px; color: var(--text-2); }
+.pitchflow li::before { content: counter(p); display: block; font: 700 12px 'Space Mono', monospace; color: var(--lime); }
+.pitchflow b { display: block; font-size: 14.5px; }
+@media (max-width: 760px) { .pitchflow { grid-template-columns: 1fr 1fr; } }
+
+/* People: mentors and judges (carousel) */
+.people-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+.car-btns { display: flex; gap: 8px; flex: none; }
+.car-btns button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--lime); font-size: 18px; cursor: pointer; }
+.car-btns button:hover { background: var(--card-2); }
+.car-btns button:disabled { opacity: .35; cursor: default; }
+.people { display: flex; gap: 12px; margin-top: 26px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--purple) transparent; }
+.person { flex: 0 0 220px; scroll-snap-align: start; padding: 22px 18px; text-align: center; display: grid; justify-items: center; align-content: start; gap: 4px; }
+.avatar { width: 112px; height: 112px; border-radius: 50%; background: var(--card-2); border: 3px solid var(--purple); color: var(--lime); font: 700 30px 'Space Mono', monospace; display: grid; place-items: center; overflow: hidden; margin-bottom: 10px; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.person h3 { font-size: 17px; font-weight: 700; line-height: 1.25; }
+.person .org { color: var(--text-2); font-size: 14.5px; }
+.roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+.role { font: 700 11.5px 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 6px; background: var(--card-2); color: var(--lilac); }
+.role.judge { background: var(--lime); color: #17121C; }
+.person .bio { color: var(--text-2); font-size: 14px; line-height: 1.45; margin-top: 10px; }
+.person.feat { border-color: rgba(213, 250, 57, .35); box-shadow: 0 0 0 1px rgba(213, 250, 57, .12), 0 10px 30px -12px rgba(213, 250, 57, .25); }
+.person.feat .avatar { border-color: var(--lime); }
+@media (max-width: 560px) { .car-btns { display: none; } .person { flex-basis: 72%; } }
+
+/* After the event */
+.after-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+.after-grid .card { padding: 20px; }
+.after-grid .e { font-size: 24px; }
+.after-grid h3 { font-size: 17px; font-weight: 700; margin-top: 10px; }
+.after-grid p { color: var(--text-2); font-size: 15px; margin-top: 4px; }
+@media (max-width: 760px) { .after-grid { grid-template-columns: 1fr 1fr; } }
+.deadline { display: inline-block; margin-top: 10px; background: var(--lime); color: #17121C; font-weight: 700; font-size: 14px; padding: 5px 10px; border-radius: 8px; }
+
+/* Getting there */
+.where { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; margin-top: 26px; }
+.where .card { padding: 22px; }
+.where h3 { font-size: 18px; font-weight: 700; }
+.where p { color: var(--text-2); font-size: 15.5px; margin-top: 6px; }
+.addr { font-size: 20px; font-weight: 700; color: var(--text); margin-top: 10px; line-height: 1.3; }
+.where .btn { margin-top: 16px; font-size: 15px; padding: 11px 18px; }
+.where ul { list-style: none; display: grid; gap: 12px; margin-top: 12px; }
+.where li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 15.5px; color: var(--text-2); }
+
+.door { margin-top: 12px; overflow: hidden; border-bottom: 1px solid var(--line); }
+.door summary { font-size: 16px; }
+.door img { display: block; width: 100%; height: auto; border-top: 1px solid var(--line); }
+
+/* Routes */
+.routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 26px; }
+.route { padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+.route .label { color: var(--muted); font-size: 11px; }
+.route h3 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.route p { color: var(--text-2); font-size: 15.5px; }
+.route.hot { background: linear-gradient(160deg, #8A2CA1, var(--purple) 55%, #5B1A6C); border-color: transparent; }
+.route.hot p { color: #F1E6F7; }
+.route.hot .label { color: var(--lilac); }
+.prize { margin-top: auto; padding-top: 12px; }
+.prize > span { display: block; background: var(--lime); color: #17121C; font-weight: 700; font-size: 13.5px; line-height: 1.35; padding: 8px 11px; border-radius: 10px; }
+
+/* Accordions */
+.acc { margin-top: 22px; overflow: hidden; }
+details { border-bottom: 1px solid var(--line); }
+details:last-of-type { border-bottom: 0; }
+summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 18px 20px; font-weight: 600; font-size: 17px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; margin-left: auto; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--card-2); color: var(--lime); display: grid; place-items: center; font-weight: 700; font-size: 18px; line-height: 1; transition: transform .2s; }
+details[open] > summary::after { transform: rotate(45deg); }
+summary:hover { color: var(--lime); }
+summary .meta { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-left: auto; }
+summary .meta + * { margin-left: 0; }
+summary:has(.meta)::after { margin-left: 0; }
+.tool summary { font-size: 20px; font-weight: 800; }
+.body { padding: 0 20px 20px; color: var(--text-2); font-size: 16px; }
+.body p + p, .body p + ol, .body ol + p, .body p + ul, .body ul + p { margin-top: 10px; }
+.body ol, .body ul { padding-left: 22px; display: grid; gap: 6px; }
+.body .note { background: var(--card-2); border-radius: 10px; padding: 12px 14px; margin-top: 12px; }
+.codes { margin-top: 22px; padding: 14px 18px; font-size: 15.5px; color: var(--text-2); display: flex; gap: 12px; align-items: center; border-style: dashed; }
+
+/* Partners */
+.plist { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+.plist.main { grid-template-columns: repeat(3, 1fr); margin-top: 26px; }
+.partner { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; text-decoration: none; padding: 26px 16px; min-height: 120px; transition: border-color .2s; }
+.partner:hover { border-color: rgba(213,250,57,.5); }
+.partner .logo { font-weight: 800; font-size: 26px; letter-spacing: -.02em; color: var(--text); }
+.partner.sm { min-height: 96px; padding: 18px 12px; }
+.partner.sm .logo { font-size: 19px; }
+.partner small { color: var(--muted); font-size: 13.5px; }
+.partner img { display: block; height: 40px; width: auto; max-width: 85%; object-fit: contain; margin-bottom: 4px; }
+.partner img.thin { height: 28px; }
+.partner.sm img { height: 34px; }
+.partner.sm img.tall { height: 54px; }
+.partner img.tall { height: 58px; }
+.partner.key { border-color: rgba(213,250,57,.45); box-shadow: 0 10px 30px -14px rgba(213,250,57,.35); }
+.plist.duo { grid-template-columns: repeat(2, 1fr); }
+.plist.trio { grid-template-columns: repeat(3, 1fr); }
+.plist.support { grid-template-columns: repeat(2, 1fr); max-width: 66%; margin-left: auto; margin-right: auto; }
+.partner.key { min-height: 140px; }
+.partner.key img { height: 48px; }
+@media (max-width: 760px) { .plist, .plist.main { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .plist.support { max-width: none; } .plist.trio { grid-template-columns: 1fr 1fr; } }
+
+/* Footer */
+footer { margin-top: 96px; border-top: 1px solid var(--line); padding: 40px 0 48px; text-align: center; font-size: 15px; color: var(--text-2); }
+footer .partners { margin-top: 12px; font-weight: 700; color: var(--text); font-size: 18px; }
+footer .partners span { color: var(--muted); font-weight: 400; margin: 0 8px; }
+footer p { margin-top: 18px; }
+
+@media (max-width: 760px) {
+  .steps3, .routes, .where { grid-template-columns: 1fr; }
+  .hero-star { width: 90px; height: 90px; right: 2%; top: 40px; opacity: .6; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 16px; }
+  .bar nav a { font-size: 13.5px; padding: 7px 8px; }
+  .bar nav a.opt { display: none; }
+  .hero { padding-top: 44px; }
+  .facts { grid-template-columns: 1fr; }
+  .fact + .fact { border-left: 0; border-top: 1px solid var(--line); }
+  .moment { grid-template-columns: 44px 1fr; gap: 12px; }
+  .moment .dot { width: 44px; height: 44px; font-size: 18px; }
+  .journey::before { left: 21px; }
+  .moment .content { padding: 14px 16px; }
+  .team-flow { grid-template-columns: 1fr; }
+  summary, .body { padding-left: 16px; padding-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } summary::after { transition: none; } }
+</style>
+</head>
+<body>
+
+<!-- BEFORE PUBLISHING: search this file for "tbc" and replace each yellow marker. -->
+
+<div class="bar">
+  <div class="wrap">
+    <a href="#top" aria-label="Back to top"><img src="th-logo.svg" alt="Techno Hacks"></a>
+    <nav aria-label="Sections">
+      <a href="#about" class="opt">About</a>
+      <a href="#prep">Prep</a>
+      <a href="#routes" class="opt">Tools</a>
+      <a href="#where">Getting there</a>
+      <a href="#day">Your day</a>
+      <a href="#people" class="opt">People</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO: what / when / where, answered in 5 seconds -->
+<header class="hero" id="top">
+  <svg class="hero-star" viewBox="-110 -110 220 220" aria-hidden="true">
+    <path d="M0 -60C6 -44.1 13.1 -32.1 22.6 -22.6C32.1 -13.1 44.1 -6 60 0C44.1 6 32.1 13.1 22.6 22.6C13.1 32.1 6 44.1 0 60C-6 44.1 -13.1 32.1 -22.6 22.6C-32.1 13.1 -44.1 6 -60 0C-44.1 -6 -32.1 -13.1 -22.6 -22.6C-13.1 -32.1 -6 -44.1 0 -60Z"/>
+    <path d="M0 -70C7 -51.4 15.2 -37.4 26.3 -26.3C37.4 -15.2 51.4 -7 70 0C51.4 7 37.4 15.2 26.3 26.3C15.2 37.4 7 51.4 0 70C-7 51.4 -15.2 37.4 -26.3 26.3C-37.4 15.2 -51.4 7 -70 0C-51.4 -7 -37.4 -15.2 -26.3 -26.3C-15.2 -37.4 -7 -51.4 0 -70Z"/>
+    <path d="M0 -80C8 -58.8 17.4 -42.8 30.1 -30.1C42.8 -17.4 58.8 -8 80 0C58.8 8 42.8 17.4 30.1 30.1C17.4 42.8 8 58.8 0 80C-8 58.8 -17.4 42.8 -30.1 30.1C-42.8 17.4 -58.8 8 -80 0C-58.8 -8 -42.8 -17.4 -30.1 -30.1C-17.4 -42.8 -8 -58.8 0 -80Z"/>
+    <path d="M0 -90C9 -66.1 19.6 -48.1 33.9 -33.9C48.1 -19.6 66.1 -9 90 0C66.1 9 48.1 19.6 33.9 33.9C19.6 48.1 9 66.1 0 90C-9 66.1 -19.6 48.1 -33.9 33.9C-48.1 19.6 -66.1 9 -90 0C-66.1 -9 -48.1 -19.6 -33.9 -33.9C-19.6 -48.1 -9 -66.1 0 -90Z"/>
+    <path d="M0 -100C10 -73.5 21.8 -53.5 37.6 -37.6C53.5 -21.8 73.5 -10 100 0C73.5 10 53.5 21.8 37.6 37.6C21.8 53.5 10 73.5 0 100C-10 73.5 -21.8 53.5 -37.6 37.6C-53.5 21.8 -73.5 10 -100 0C-73.5 -10 -53.5 -21.8 -37.6 -37.6C-21.8 -53.5 -10 -73.5 0 -100Z"/>
+    <rect x="-96" y="-3" width="20" height="6"/><rect x="76" y="-3" width="20" height="6"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Idea <span>→</span> Prototype <span>→</span> Pitch <span>in a day</span></p>
+    <h1>Techno<br>Hacks <em>#1</em></h1>
+    <p class="lede">For the curious who dare to build</p>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="ico cal"><span>Nov</span><span>21</span></div>
+        <div><b>Saturday 21 November</b><small>Check-in from 9:45 · until about 17:30</small></div>
+      </div>
+      <div class="fact">
+        <div class="ico">📍</div>
+        <div><b>DTU Skylab, auditorium</b><small>Enter by the back door · <a href="#where">Directions</a></small></div>
+      </div>
+    </div>
+
+    <div class="ctas">
+      <a class="btn primary" href="#prep">Get ready</a>
+      <a class="btn ghost" href="#day">See your day</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- 1. WELCOME -->
+<section id="about">
+  <div class="wrap">
+    <span class="label">Welcome</span>
+    <h2>One day to <em>dare to build</em></h2>
+    <div class="welcome">
+      <div class="card welcome-main">
+        <p class="big">Techno Hacks is a student-led hackathon at DTU, started by Technos.</p>
+        <p>Team up with new people, build a prototype and pitch it, all in one day. Test an idea, try something new, or take a potential co-founder for a spin.</p>
+        <p>Engineer, designer, business mind or none of the above: you belong here.</p>
+      </div>
+      <div class="welcome-side">
+        <div class="card mini">
+          <span class="label">What's “hacking”?</span>
+          <p>Not breaking into computers. Hacking means solving a problem creatively, with whatever you've got.</p>
+        </div>
+        <div class="card mini">
+          <span class="label">What's a hackathon?</span>
+          <p>Teams build something real, fast, and show it off at the end. Expect a few “wait, that actually works?” moments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. PREP -->
+<section id="prep">
+  <div class="wrap">
+    <span class="label">Prep</span>
+    <h2>Get ready <em>before Saturday</em></h2>
+    <div class="steps3">
+      <div class="card step">
+        <div class="n">1</div>
+        <h3>Pack your laptop, charger and a payment card</h3>
+        <p>Lovable and Mistral ask for one to redeem credits. Nothing is charged. <a href="#faq-card">Why?</a></p>
+      </div>
+      <div class="card step">
+        <div class="n">2</div>
+        <h3>Make a free account for your tool</h3>
+        <p><a href="https://atech.dev/" target="_blank" rel="noopener">Atech</a>, <a href="https://lovable.dev/" target="_blank" rel="noopener">Lovable</a> or <a href="https://mistral.ai/" target="_blank" rel="noopener">Mistral</a>. Not sure yet? <a href="#routes">Compare them</a> or decide on the day.</p>
+      </div>
+      <div class="card step">
+        <div class="n">3</div>
+        <h3>Bring an idea, or just curiosity</h3>
+        <p>A problem you care about or a space to explore. No idea? Bring an open mind and plenty of energy.</p>
+      </div>
+    </div>
+    <p class="aside-note">🔑 Codes and credits are handed out at the event. Nothing to redeem beforehand.</p>
+    <!-- DISCORD (enable if confirmed):
+    <p class="aside-note">💬 Make a free <a href="https://discord.com/register" target="_blank" rel="noopener">Discord</a> account. You'll get the invite at check-in.</p>
+    -->
+  </div>
+</section>
+
+<!-- 3. THREE WAYS TO BUILD -->
+<section id="routes">
+  <div class="wrap">
+    <span class="label">Pick your tool</span>
+    <h2>Three ways to build</h2>
+    <p class="intro">No need to decide now. Mix them if you like.</p>
+    <div class="routes">
+      <div class="card route hot">
+        <span class="label">Hardware</span>
+        <h3>Atech</h3>
+        <p>Build real electronics by describing what you want in plain English.</p>
+        <div class="prize"><span>★ Win Atech's best build and keep what you built</span></div>
+      </div>
+      <div class="card route">
+        <span class="label">No-code</span>
+        <h3>Lovable</h3>
+        <p>Build a working app just by describing it. No coding needed.</p>
+      </div>
+      <div class="card route">
+        <span class="label">AI &amp; code</span>
+        <h3>Mistral</h3>
+        <p>Build with AI models and €30 of API credits. Some coding helps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. GETTING THERE -->
+<section id="where">
+  <div class="wrap">
+    <span class="label">Getting there</span>
+    <h2>Where to go</h2>
+    <div class="where">
+      <div class="card">
+        <h3>DTU Skylab, auditorium</h3>
+        <p class="addr">Back door on Diplomvej<br>2800 Lundtofte</p>
+        <p>Skylab's official address is Centrifugevej 374, but use the back door around the corner.</p>
+        <a class="btn primary" href="https://maps.app.goo.gl/3SrNEyTkPnJWLYyGA" target="_blank" rel="noopener">Open the back door in Maps</a>
+      </div>
+      <div class="card">
+        <h3>When you get there</h3>
+        <ul>
+          <li><span>🚪</span><span>Look for the <b>glass entrance at the corner of the dark building</b> on Diplomvej.</span></li>
+          <li><span>🎟️</span><span>Have your <b>Luma ticket</b> ready on your phone.</span></li>
+          <li><span>⏱️</span><span>Running late or can't get in? Message us on <a href="https://linkedin.com/company/techno-hacks" target="_blank" rel="noopener">LinkedIn</a> or reply to one of our Luma emails.</span></li>
+        </ul>
+      </div>
+    </div>
+    <details class="card door">
+      <summary>📷 Show a photo of the back door</summary>
+      <img src="back-door.webp" alt="Street view of Diplomvej: the back door is the glass entrance at the near corner of the dark ribbed building." loading="lazy">
+    </details>
+  </div>
+</section>
+
+<!-- 5. YOUR DAY -->
+<section id="day">
+  <div class="wrap">
+    <span class="label">Saturday 21 November</span>
+    <h2>Your day, step by step</h2>
+    <p class="intro">No team, no idea, no coding skills? All fine. Times may shift a little, but check-in opens at 9:45 for sure.</p>
+
+    <ol class="journey">
+      <li class="moment">
+        <div class="dot" aria-hidden="true">👋</div>
+        <div class="card content">
+          <span class="time">9:45</span>
+          <h3>Arrive and check in</h3>
+          <p>Enter by the back door and show your Luma ticket. Grab coffee or tea and some fruit, and meet people.</p>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🎤</div>
+        <div class="card content">
+          <span class="time">10:15</span>
+          <h3>Kick-off</h3>
+          <p>A short welcome, talks from Atech and Mistral, then instructions and access to the tools.</p>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🤝</div>
+        <div class="card content">
+          <span class="time">11:00</span>
+          <h3>Find your people</h3>
+          <p>Share ideas, meet people and form a team of 3–5 around something you're excited to build.</p>
+          <div class="team-flow">
+            <div><b>Share an idea</b>Got one? Pitch it in 30 seconds. Rough is perfect.</div>
+            <div><b>Join one you like</b>No idea? Join the one that excites you most.</div>
+            <div><b>Team up</b>Once you're 3–5, grab a table and brainstorm.</div>
+          </div>
+          <p class="tip">💡 Finding your people is a skill. Aim for a mix of skills and see who you click with. Stuck? Grab a facilitator. We've got you.</p>
+          <p class="tip"><a href="#people">Mentors</a> are around all morning for tool access, team forming and brainstorming.</p>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🍕</div>
+        <div class="card content">
+          <span class="time">12:30</span>
+          <h3>Lunch</h3>
+          <p>Pizza slices from Atech, Casca sodas and water. Big appetite? Bring a snack or your own lunch.</p>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🛠️</div>
+        <div class="card content">
+          <span class="time">13:00</span>
+          <h3>Build</h3>
+          <p>Heads down, pure focus. Build something that shows how your idea works, ideally with working parts.</p>
+          <span class="deadline">⏰ Submit by 15:45</span>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🚀</div>
+        <div class="card content">
+          <span class="time">16:00</span>
+          <h3>Pitch</h3>
+          <p>4 minutes + 1 minute of questions, in four parts:</p>
+          <ol class="pitchflow">
+            <li><b>Problem</b>Who has it, and how do you know?</li>
+            <li><b>Solution + demo</b>Show it working</li>
+            <li><b>Team + learnings</b>Who you are, what was new today</li>
+            <li><b>Next step + ask</b>What you need to keep going</li>
+          </ol>
+          <p class="tip"><a href="#faq-judging">How judging works</a></p>
+        </div>
+      </li>
+      <li class="moment">
+        <div class="dot" aria-hidden="true">🥂</div>
+        <div class="card content">
+          <span class="time">17:15</span>
+          <h3>Winners and closing</h3>
+          <p>Three awards, then the closing and a group photo around 17:30.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. MENTORS AND JUDGES -->
+<section id="people">
+  <div class="wrap">
+    <span class="label">Who's in the room</span>
+    <div class="people-head">
+      <h2>Meet your <em>mentors and judges</em></h2>
+      <div class="car-btns"><button type="button" data-dir="-1" aria-label="Previous">←</button><button type="button" data-dir="1" aria-label="Next">→</button></div>
+    </div>
+    <p class="intro">Stuck, curious or looking for feedback? Grab them and ask.</p>
+    <div class="people" id="people-track">
+      <article class="card person">
+        <div class="avatar">CF<!-- PHOTO READY: once caroline OKs it, move people-pending/caroline.jpg to website/people/ and use <img src="people/caroline.jpg" alt=""> here --></div>
+        <h3>Caroline Frandsen</h3>
+        <p class="org">Pippi Consult</p>
+        <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
+        <p class="bio">IT executive with 15+ years leading tech transformation. Helps companies adopt AI.</p>
+      </article>
+      <article class="card person">
+        <div class="avatar"><img src="people/hannibal.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('HM'))"></div>
+        <h3>Hannibal Marcellus Munk</h3>
+        <p class="org">RoyalHacks</p>
+        <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
+        <p class="bio">Founder of RoyalHacks, Denmark's first national student hackathon.</p>
+      </article>
+      <article class="card person">
+        <div class="avatar">KA<!-- PHOTO READY: once kubra OKs it, move people-pending/kubra.jpg to website/people/ and use <img src="people/kubra.jpg" alt=""> here --></div>
+        <h3>Kübra Altinel Bruun</h3>
+        <p class="org">Mistral AI ambassador</p>
+        <div class="roles"><span class="role">Mentor</span><span class="role">Talk</span></div>
+        <p class="bio">Senior AI engineer with a PhD in probabilistic ML. One of Sifted's 100 Women in EU Tech 2026.</p>
+      </article>
+      <article class="card person">
+        <div class="avatar"><img src="people/nadjia.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('NB'))"></div>
+        <h3>Nadjia Berkani</h3>
+        <p class="org">Build for Impact</p>
+        <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
+        <p class="bio">Organises Build for Impact hackathons in Copenhagen.</p>
+      </article>
+      <article class="card person">
+        <div class="avatar"><img src="people/atech.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('⚡'))"></div>
+        <h3>The Atech team</h3>
+        <p class="org">Atech</p>
+        <div class="roles"><span class="role">Mentors</span><span class="role">Talk</span></div>
+        <p class="bio">Your go-to for anything hardware. Find them at the kit table.</p>
+      </article>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+  const t = document.getElementById('people-track');
+  const [prev, next] = document.querySelectorAll('.car-btns button');
+  const step = () => t.querySelector('.person').offsetWidth + 12;
+  const sync = () => { prev.disabled = t.scrollLeft < 4; next.disabled = t.scrollLeft + t.clientWidth > t.scrollWidth - 4; };
+  [prev, next].forEach(b => b.addEventListener('click', () => t.scrollBy({ left: step() * b.dataset.dir })));
+  t.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); sync();
+})();
+</script>
+
+<!-- 7. TOOL SETUP (on the day, collapsed) -->
+<section id="setup">
+  <div class="wrap">
+    <span class="label">On the day</span>
+    <h2>Set up your tools</h2>
+    <p class="intro">Open the one you're using once you have your code.</p>
+    <div class="card codes"><span aria-hidden="true">🔑</span><span>Codes and links are handed out <b>at the event only</b>, during the kick-off.</span></div>
+    <div class="card acc">
+      <details class="tool">
+        <summary>Atech <span class="meta">No card</span></summary>
+        <div class="body">
+          <ol>
+            <li>Sign up at <a href="https://atech.dev/" target="_blank" rel="noopener">atech.dev</a>.</li>
+            <li>Ask the Atech team at the kit table which kits are available.</li>
+            <li>Describe what you want to build and follow their setup.</li>
+            <li>Have your build checked before you power it on.</li>
+            <li>Save your project and return the kit at the end.</li>
+          </ol>
+        </div>
+      </details>
+      <details class="tool">
+        <summary>Lovable <span class="meta">Card needed</span></summary>
+        <div class="body">
+          <ol>
+            <li>Go to <a href="https://lovable.dev/" target="_blank" rel="noopener">lovable.dev</a>.</li>
+            <li>No account yet? Click <b>“Get started”</b> and create one.</li>
+            <li>Have an account? Go to <b>Settings → Plans &amp; Credits</b>.</li>
+            <li>Select <b>Pro Plan 1 (100 credits)</b>. Make sure to choose the <b>monthly</b> plan.</li>
+            <li>At checkout, enter your discount code.</li>
+          </ol>
+          <p>Already have a paid account? You need to create a new workspace first.</p>
+          <p class="note">✅ Nothing is charged: the code covers your Pro month. Not planning to keep it? Cancel in <b>Settings → Plans &amp; Credits</b> right away. Your 100 credits stay.</p>
+        </div>
+      </details>
+      <details class="tool">
+        <summary>Mistral <span class="meta">Card needed</span></summary>
+        <div class="body">
+          <ol>
+            <li>Create an account at <a href="https://mistral.ai/" target="_blank" rel="noopener">mistral.ai</a>.</li>
+            <li>Redeem the credits with the link shared at the event.</li>
+            <li>Check your <b>€30 API credits</b> on the <b>Billing</b> or <b>Subscription</b> page.</li>
+            <li>Follow the <a href="https://docs.mistral.ai/" target="_blank" rel="noopener">setup docs</a> for your tools.</li>
+          </ol>
+          <p class="note">✅ Nothing is charged: you're building on the €30 event credits. Done after the hackathon? You can cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="label">Questions</span>
+    <h2>FAQ</h2>
+    <div class="card acc">
+      <details>
+        <summary>I don't have a team or an idea</summary>
+        <div class="body"><p>Most people don't. Come solo and join an idea at 11:00 to form a team of 3–5. You can't build solo, so if you're stuck, find a facilitator and we'll help.</p></div>
+      </details>
+      <details>
+        <summary>Can I come with a team I already have?</summary>
+        <div class="body"><p>Yes, as long as you're 3–5 people. You can also use the day to try building with someone new.</p></div>
+      </details>
+      <details>
+        <summary>I can't code</summary>
+        <div class="body"><p>You don't need to. Atech and Lovable work by describing what you want, and teams need designers and business minds just as much.</p></div>
+      </details>
+      <details id="faq-card">
+        <summary>Why do I need a payment card?</summary>
+        <div class="body">
+          <p>Lovable and Mistral ask for a card when you redeem the event credits. <b>Nothing is charged.</b></p>
+          <ul>
+            <li><b>Lovable:</b> the code covers your Pro month. Not keeping it? Cancel in <b>Settings → Plans &amp; Credits</b> right away. Your 100 credits stay.</li>
+            <li><b>Mistral:</b> you build on the €30 event credits. When you're done, cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</li>
+            <li><b>Atech:</b> no card needed.</li>
+          </ul>
+          <p>No credit card? A debit or virtual card usually works, or a teammate can redeem the credits.</p>
+        </div>
+      </details>
+      <details id="faq-judging">
+        <summary>How is judging done?</summary>
+        <div class="body">
+          <p>Every team is scored on four things, equally:</p>
+          <ul>
+            <li><b>Problem:</b> is it real, for whom, and how do you know?</li>
+            <li><b>Build:</b> how much of your idea can we see working?</li>
+            <li><b>Daring:</b> what leap did you take today?</li>
+            <li><b>Pitch:</b> would we want to join or back you?</li>
+          </ul>
+          <p class="note">Simulating part of your demo is fine, just say what's simulated. Keep screenshots in case the live demo breaks.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What can we win?</summary>
+        <div class="body"><p>Three awards: <b>Atech's best build</b> (the winning team keeps what it built), the <b>Entrepreneurial spirit</b> award and our <b>Techno Hacks #1 winner</b>. The prizes are small and revealed on the day, because the real win is what you take home: a prototype, new teammates, maybe a co-founder, and the guts to build the next thing.</p></div>
+      </details>
+      <details>
+        <summary>What's there to eat?</summary>
+        <div class="body"><p>Coffee, tea, fruit and maybe pastries from Madboks. Pizza slices for lunch from Atech, Casca sodas and water. All free. Big appetite? Bring a snack or your own lunch.</p></div>
+      </details>
+      <details>
+        <summary>Will there be photos?</summary>
+        <div class="body"><p>Yes, we'll take photos during the day. Prefer not to be in them? Just tell us at check-in.</p></div>
+      </details>
+      <details>
+        <summary>Is there Wi-Fi?</summary>
+        <div class="body"><p>Yes: <b>DTU Guest</b> (connect, open a browser and accept). DTU students can use <b>eduroam</b>.</p></div>
+      </details>
+      <details>
+        <summary>I can't come anymore</summary>
+        <div class="body"><p>Please cancel your spot on Luma so someone on the waitlist can take it.</p></div>
+      </details>
+      <details>
+        <summary>Do I need to return the Atech kit?</summary>
+        <div class="body"><p>Yes, please hand it back at the end of the day, unless your team wins Atech's best build. Then it's yours to keep.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- AFTER THE EVENT -->
+<section id="after">
+  <div class="wrap">
+    <span class="label">After Saturday</span>
+    <h2>Keep the <em>momentum</em></h2>
+    <div class="after-grid">
+      <div class="card"><div class="e">🔔</div><h3>Follow us</h3><p>Follow <a href="https://linkedin.com/company/techno-hacks" target="_blank" rel="noopener">Techno Hacks on LinkedIn</a> to hear about the next hackathon first.</p></div>
+      <div class="card"><div class="e">📣</div><h3>Share your build</h3><p>Post about your day and tag us. We'll send you a link to the photos.</p></div>
+      <div class="card"><div class="e">💬</div><h3>Tell us how it went</h3><p>We'll ask for your feedback so the next one is even better.</p></div>
+      <div class="card"><div class="e">🛠️</div><h3>Keep building</h3><p>Any Lovable and Mistral credits left are yours to use.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS: logos exported from the Techno Hacks Figma file -->
+<section id="partners">
+  <div class="wrap">
+    <span class="label">Made possible by</span>
+    <h2>Our partners</h2>
+    <div class="plist main duo">
+      <a class="card partner key" href="https://atech.dev/" target="_blank" rel="noopener"><img src="logos/atech.png" alt="Atech.dev"><small>Hardware kits, mentoring and pizza</small></a>
+      <a class="card partner key" href="https://mistral.ai/" target="_blank" rel="noopener"><img src="logos/mistral.png" alt="Mistral AI"><small>API credits and mentoring</small></a>
+    </div>
+    <div class="plist trio">
+      <a class="card partner" href="https://lovable.dev/" target="_blank" rel="noopener"><img src="logos/lovable.png" alt="Lovable" class="thin"><small>Vibe coding credits</small></a>
+      <a class="card partner" href="https://www.linkedin.com/company/drinkcasca/" target="_blank" rel="noopener"><img src="logos/casca.png" alt="Casca"><small>Upcycled cascara soda</small></a>
+      <a class="card partner" href="https://www.instagram.com/madboks_kbh/" target="_blank" rel="noopener"><img src="logos/madboks.png" alt="Madboks" class="tall"><small>Rescued fruit and snacks</small></a>
+    </div>
+    <div class="plist support">
+      <a class="card partner sm" href="https://www.royalhacks.io/" target="_blank" rel="noopener"><img src="logos/royalhacks.png" alt="RoyalHacks"><small>Supporting partner</small></a>
+      <a class="card partner sm" href="https://www.linkedin.com/company/build-for-impact-ai/" target="_blank" rel="noopener"><img src="logos/buildforimpact.png" alt="Build for Impact"><small>Supporting partner</small></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Techno Hacks is a student-led hackathon by Technos, students from DTU's MSc in Technology Entrepreneurship. See you Saturday 💜</p>
+  </div>
+</footer>
+
+</body>
+</html>
