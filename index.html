@@ -153,8 +153,8 @@ h2 em { font-style: normal; color: var(--lime); }
 .car-btns button:hover { background: var(--card-2); }
 .car-btns button:disabled { opacity: .35; cursor: default; }
 .people { display: flex; gap: 12px; margin-top: 26px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--purple) transparent; }
-.person { flex: 0 0 220px; scroll-snap-align: start; padding: 22px 18px; text-align: center; display: grid; justify-items: center; align-content: start; gap: 4px; }
-.avatar { width: 112px; height: 112px; border-radius: 50%; background: var(--card-2); border: 3px solid var(--purple); color: var(--lime); font: 700 30px 'Space Mono', monospace; display: grid; place-items: center; overflow: hidden; margin-bottom: 10px; }
+.person { flex: 0 0 260px; scroll-snap-align: start; padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; background: var(--card-2); border: 3px solid var(--purple); color: var(--lime); font: 700 26px 'Space Mono', monospace; display: grid; place-items: center; overflow: hidden; margin-bottom: 10px; }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 .person h3 { font-size: 17px; font-weight: 700; line-height: 1.25; }
 .person .org { color: var(--text-2); font-size: 14.5px; }
@@ -162,6 +162,12 @@ h2 em { font-style: normal; color: var(--lime); }
 .role { font: 700 11.5px 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 6px; background: var(--card-2); color: var(--lilac); }
 .role.judge { background: var(--lime); color: #17121C; }
 .person .bio { color: var(--text-2); font-size: 14px; line-height: 1.45; margin-top: 10px; }
+.person .ask { margin-top: auto; padding-top: 14px; width: 100%; }
+.person .bio { margin-bottom: 18px; }
+.person .ask { border-top: 1px solid var(--line); min-height: 96px; }
+.ask-label { display: block; font: 700 10.5px 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 6px; }
+.ask ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.ask li { font-size: 12.5px; padding: 2px 9px; border: 1px solid rgba(211, 175, 232, .45); border-radius: 999px; color: var(--lilac); }
 .person.feat { border-color: rgba(213, 250, 57, .35); box-shadow: 0 0 0 1px rgba(213, 250, 57, .12), 0 10px 30px -12px rgba(213, 250, 57, .25); }
 .person.feat .avatar { border-color: var(--lime); }
 @media (max-width: 560px) { .car-btns { display: none; } .person { flex-basis: 72%; } }
@@ -584,6 +590,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p class="org">Pippi Consult</p>
         <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
         <p class="bio">IT executive with 15+ years leading tech transformation. Helps companies adopt AI.</p>
+        <div class="ask"><span class="ask-label">Ask about</span><ul><li>Business case</li><li>AI in companies</li><li>Tech strategy</li></ul></div>
       </article>
       <article class="card person">
         <div class="avatar"><img src="people/hannibal.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('HM'))"></div>
@@ -591,6 +598,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p class="org">RoyalHacks</p>
         <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
         <p class="bio">Founder of RoyalHacks, Denmark's first national student hackathon.</p>
+        <div class="ask"><span class="ask-label">Ask about</span><ul><li>Coding</li><li>Entrepreneurship</li><li>Innovation</li></ul></div>
       </article>
       <article class="card person">
         <div class="avatar"><img src="people/kubra.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('KA'))"></div>
@@ -598,6 +606,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p class="org">Mistral AI ambassador</p>
         <div class="roles"><span class="role">Mentor</span><span class="role">Talk</span></div>
         <p class="bio">Senior AI engineer with a PhD in probabilistic ML. One of Sifted's 100 Women in EU Tech 2026.</p>
+        <div class="ask"><span class="ask-label">Ask about</span><ul><li>AI models</li><li>Mistral API</li><li>Machine learning</li></ul></div>
       </article>
       <article class="card person">
         <div class="avatar"><img src="people/nadjia.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('NB'))"></div>
@@ -605,6 +614,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p class="org">Build for Impact</p>
         <div class="roles"><span class="role judge">Judge</span><span class="role">Mentor</span></div>
         <p class="bio">Organises Build for Impact hackathons in Copenhagen.</p>
+        <div class="ask"><span class="ask-label">Ask about</span><ul><li>Vibe coding</li><li>Impact</li><li>Problem framing</li></ul></div>
       </article>
       <article class="card person">
         <div class="avatar"><img src="people/atech.jpg" alt="" loading="lazy" onerror="this.replaceWith(document.createTextNode('⚡'))"></div>
@@ -612,6 +622,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p class="org">Atech</p>
         <div class="roles"><span class="role">Mentors</span><span class="role">Talk</span></div>
         <p class="bio">Your go-to for anything hardware. Find them at the kit table.</p>
+        <div class="ask"><span class="ask-label">Ask about</span><ul><li>Hardware</li><li>Electronics</li><li>Your kit</li></ul></div>
       </article>
     </div>
   </div>
