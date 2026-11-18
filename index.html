@@ -248,11 +248,11 @@ footer { margin-top: 96px; border-top: 1px solid var(--line); padding: 40px 0 48
 footer .partners { margin-top: 12px; font-weight: 700; color: var(--text); font-size: 18px; }
 footer .partners span { color: var(--muted); font-weight: 400; margin: 0 8px; }
 footer p { margin-top: 18px; }
-footer .team { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-footer .team a { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); font-weight: 600; text-decoration: none; }
-footer .team a:hover { border-color: var(--lime); color: var(--lime); }
-footer .li { width: 16px; height: 16px; fill: currentColor; flex: none; }
-footer .follow { margin-top: 20px; font-size: 14px; }
+footer .li-page { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; background: var(--lime); color: #12081A; font-weight: 700; font-size: 16px; text-decoration: none; }
+footer .li-page:hover { filter: brightness(1.08); }
+footer .li { width: 20px; height: 20px; fill: currentColor; flex: none; }
+footer .sign { margin-top: 22px; line-height: 1.7; }
+footer .sign a { color: var(--text); font-weight: 600; }
 
 @media (max-width: 760px) {
   .steps3, .routes, .where { grid-template-columns: 1fr; }
@@ -741,13 +741,8 @@ footer .follow { margin-top: 20px; font-size: 14px; }
 
 <footer>
   <div class="wrap">
-    <p class="made-by">Made with 💜 by three Technos, students from DTU's MSc in Technology Entrepreneurship.</p>
-    <ul class="team">
-      <li><a href="https://www.linkedin.com/in/rl-lin/" target="_blank" rel="noopener"><svg class="li" viewBox="0 0 24 24" aria-hidden="true"><path id="li-path" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Rui Lin</a></li>
-      <li><a href="https://www.linkedin.com/in/larissa-de-la-vega/" target="_blank" rel="noopener"><svg class="li" viewBox="0 0 24 24" aria-hidden="true"><use href="#li-path"/></svg>Larissa De La Vega</a></li>
-      <li><a href="https://www.linkedin.com/in/ingrid-sauerbrey/" target="_blank" rel="noopener"><svg class="li" viewBox="0 0 24 24" aria-hidden="true"><use href="#li-path"/></svg>Ingrid Sauerbrey</a></li>
-    </ul>
-    <p class="follow"><a href="https://linkedin.com/company/techno-hacks" target="_blank" rel="noopener">Follow Techno Hacks on LinkedIn</a> · See you Saturday!</p>
+    <a class="li-page" href="https://linkedin.com/company/techno-hacks" target="_blank" rel="noopener"><svg class="li" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Follow Techno Hacks on LinkedIn</a>
+    <p class="sign">See you on Saturday 💜<br><a href="https://www.linkedin.com/in/rl-lin/" target="_blank" rel="noopener">Rui</a>, <a href="https://www.linkedin.com/in/larissa-de-la-vega/" target="_blank" rel="noopener">Larissa</a> and <a href="https://www.linkedin.com/in/ingrid-sauerbrey/" target="_blank" rel="noopener">Ingrid</a></p>
   </div>
 </footer>
 
