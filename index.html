@@ -202,6 +202,9 @@ h2 em { font-style: normal; color: var(--lime); }
 .prize > span { display: block; background: var(--lime); color: #17121C; font-weight: 700; font-size: 13.5px; line-height: 1.35; padding: 8px 11px; border-radius: 10px; }
 
 /* Accordions */
+.setup { margin-top: 56px; scroll-margin-top: 90px; }
+.setup h3.sub { font-size: 22px; letter-spacing: -.01em; }
+.setup .intro { margin-top: 6px; }
 .acc { margin-top: 22px; overflow: hidden; }
 details { border-bottom: 1px solid var(--line); }
 details:last-of-type { border-bottom: 0; }
@@ -383,14 +386,14 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <p>A problem you care about or a space to explore. No idea? Bring an open mind and plenty of energy.</p>
       </div>
     </div>
-    <p class="aside-note">🔑 Codes and credits are handed out at the event. Nothing to redeem beforehand.</p>
+    <p class="aside-note">🔑 Codes and credits are handed out at the event. Nothing to redeem beforehand. <a href="#setup">How setup works</a></p>
     <!-- DISCORD (enable if confirmed):
     <p class="aside-note">💬 Make a free <a href="https://discord.com/register" target="_blank" rel="noopener">Discord</a> account. You'll get the invite at check-in.</p>
     -->
   </div>
 </section>
 
-<!-- 3. THREE WAYS TO BUILD -->
+<!-- 3. TOOLS: three ways to build + setting up on the day (collapsed) -->
 <section id="routes">
   <div class="wrap">
     <span class="label">Pick your tool</span>
@@ -412,6 +415,51 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
         <span class="label">AI &amp; code</span>
         <h3>Mistral</h3>
         <p>Build with AI models and €30 of API credits. Some coding helps.</p>
+      </div>
+    </div>
+    <div class="setup" id="setup">
+      <h3 class="sub">Setting up on the day</h3>
+      <p class="intro">Open the one you're using once you have your code.</p>
+      <div class="card codes"><span aria-hidden="true">🔑</span><span>Codes and links are handed out <b>at the event only</b>, during the kick-off.</span></div>
+      <div class="card acc">
+        <details class="tool">
+          <summary>Atech <span class="meta">No card</span></summary>
+          <div class="body">
+            <ol>
+              <li>Sign up at <a href="https://atech.dev/" target="_blank" rel="noopener">atech.dev</a>.</li>
+              <li>Ask the Atech team at the kit table which kits are available.</li>
+              <li>Describe what you want to build and follow their setup.</li>
+              <li>Have your build checked before you power it on.</li>
+              <li>Save your project and return the kit at the end.</li>
+            </ol>
+          </div>
+        </details>
+        <details class="tool">
+          <summary>Lovable <span class="meta">Card needed</span></summary>
+          <div class="body">
+            <ol>
+              <li>Go to <a href="https://lovable.dev/" target="_blank" rel="noopener">lovable.dev</a>.</li>
+              <li>No account yet? Click <b>“Get started”</b> and create one.</li>
+              <li>Have an account? Go to <b>Settings → Plans &amp; Credits</b>.</li>
+              <li>Select <b>Pro Plan 1 (100 credits)</b>. Make sure to choose the <b>monthly</b> plan.</li>
+              <li>At checkout, enter your discount code.</li>
+            </ol>
+            <p>Already have a paid account? You need to create a new workspace first.</p>
+            <p class="note">✅ Nothing is charged: the code covers your Pro month. Not planning to keep it? Cancel in <b>Settings → Plans &amp; Credits</b> right away. Your 100 credits stay.</p>
+          </div>
+        </details>
+        <details class="tool">
+          <summary>Mistral <span class="meta">Card needed</span></summary>
+          <div class="body">
+            <ol>
+              <li>Create an account at <a href="https://mistral.ai/" target="_blank" rel="noopener">mistral.ai</a>.</li>
+              <li>Redeem the credits with the link shared at the event.</li>
+              <li>Check your <b>€30 API credits</b> on the <b>Billing</b> or <b>Subscription</b> page.</li>
+              <li>Follow the <a href="https://docs.mistral.ai/" target="_blank" rel="noopener">setup docs</a> for your tools.</li>
+            </ol>
+            <p class="note">✅ Nothing is charged: you're building on the €30 event credits. Done after the hackathon? You can cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</p>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -478,7 +526,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
           <div class="team-flow">
             <div><b>Share an idea</b>Got one? Pitch it in 30 seconds. Rough is perfect.</div>
             <div><b>Join one you like</b>No idea? Join the one that excites you most.</div>
-            <div><b>Start building</b>Once you're 3–5, grab a table, set up your tools and go.</div>
+            <div><b>Start building</b>Once you're 3–5, grab a table, <a href="#setup">set up your tools</a> and go.</div>
           </div>
           <p class="tip">💡 Finding your people is a skill. Aim for a mix of skills and see who you click with. Stuck? Grab a facilitator. We've got you.</p>
           <p class="tip"><a href="#people">Mentors</a> are around all morning to help with tools, teams and getting started.</p>
@@ -587,57 +635,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
 })();
 </script>
 
-<!-- 7. TOOL SETUP (on the day, collapsed) -->
-<section id="setup">
-  <div class="wrap">
-    <span class="label">On the day</span>
-    <h2>Set up your tools</h2>
-    <p class="intro">Open the one you're using once you have your code.</p>
-    <div class="card codes"><span aria-hidden="true">🔑</span><span>Codes and links are handed out <b>at the event only</b>, during the kick-off.</span></div>
-    <div class="card acc">
-      <details class="tool">
-        <summary>Atech <span class="meta">No card</span></summary>
-        <div class="body">
-          <ol>
-            <li>Sign up at <a href="https://atech.dev/" target="_blank" rel="noopener">atech.dev</a>.</li>
-            <li>Ask the Atech team at the kit table which kits are available.</li>
-            <li>Describe what you want to build and follow their setup.</li>
-            <li>Have your build checked before you power it on.</li>
-            <li>Save your project and return the kit at the end.</li>
-          </ol>
-        </div>
-      </details>
-      <details class="tool">
-        <summary>Lovable <span class="meta">Card needed</span></summary>
-        <div class="body">
-          <ol>
-            <li>Go to <a href="https://lovable.dev/" target="_blank" rel="noopener">lovable.dev</a>.</li>
-            <li>No account yet? Click <b>“Get started”</b> and create one.</li>
-            <li>Have an account? Go to <b>Settings → Plans &amp; Credits</b>.</li>
-            <li>Select <b>Pro Plan 1 (100 credits)</b>. Make sure to choose the <b>monthly</b> plan.</li>
-            <li>At checkout, enter your discount code.</li>
-          </ol>
-          <p>Already have a paid account? You need to create a new workspace first.</p>
-          <p class="note">✅ Nothing is charged: the code covers your Pro month. Not planning to keep it? Cancel in <b>Settings → Plans &amp; Credits</b> right away. Your 100 credits stay.</p>
-        </div>
-      </details>
-      <details class="tool">
-        <summary>Mistral <span class="meta">Card needed</span></summary>
-        <div class="body">
-          <ol>
-            <li>Create an account at <a href="https://mistral.ai/" target="_blank" rel="noopener">mistral.ai</a>.</li>
-            <li>Redeem the credits with the link shared at the event.</li>
-            <li>Check your <b>€30 API credits</b> on the <b>Billing</b> or <b>Subscription</b> page.</li>
-            <li>Follow the <a href="https://docs.mistral.ai/" target="_blank" rel="noopener">setup docs</a> for your tools.</li>
-          </ol>
-          <p class="note">✅ Nothing is charged: you're building on the €30 event credits. Done after the hackathon? You can cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</p>
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- 8. FAQ -->
+<!-- 7. FAQ -->
 <section id="faq">
   <div class="wrap">
     <span class="label">Questions</span>
