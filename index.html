@@ -220,6 +220,7 @@ summary::after { content: "+"; margin-left: auto; flex: none; width: 28px; heigh
 details[open] > summary::after { transform: rotate(45deg); }
 summary:hover { color: var(--lime); }
 summary .meta { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-left: auto; }
+.tool li .alt { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); }
 summary .meta + * { margin-left: 0; }
 summary:has(.meta)::after { margin-left: 0; }
 .tool summary { font-size: 20px; font-weight: 800; }
@@ -451,11 +452,11 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
           <div class="body">
             <ol>
               <li>Create an account at <a href="https://mistral.ai/" target="_blank" rel="noopener">mistral.ai</a>.</li>
-              <li>Redeem the credits with the link shared at the event.</li>
-              <li>Check your <b>€30 API credits</b> on the <b>Billing</b> or <b>Subscription</b> page.</li>
+              <li>Open the link we share at the event and complete the checkout. The discount is already applied.<span class="alt">No link? Click <b>Redeem</b> on the <a href="https://admin.mistral.ai/organization/billing" target="_blank" rel="noopener">Billing page</a> and enter your discount code at checkout.</span></li>
+              <li>Check your <b>€30 API credits</b> on the <b>Billing</b> page.</li>
               <li>Follow the <a href="https://docs.mistral.ai/" target="_blank" rel="noopener">setup docs</a> for your tools.</li>
             </ol>
-            <p class="note">✅ Nothing is charged: you're building on the €30 event credits. Done after the hackathon? You can cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</p>
+            <p class="note">✅ Nothing is charged: you're building on the €30 event credits. Done after the hackathon? You can remove your card on the <b>Billing</b> page.</p>
           </div>
         </details>
       </div>
@@ -662,7 +663,7 @@ footer .fine { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--
           <p>Lovable and Mistral ask for a card when you redeem the event credits. <b>Nothing is charged.</b></p>
           <ul>
             <li><b>Lovable:</b> the code covers your Pro month. Not keeping it? Cancel in <b>Settings → Plans &amp; Credits</b> right away. Your 100 credits stay.</li>
-            <li><b>Mistral:</b> you build on the €30 event credits. When you're done, cancel or remove your card on the <b>Billing</b> or <b>Subscription</b> page.</li>
+            <li><b>Mistral:</b> you build on the €30 event credits. When you're done, remove your card on the <b>Billing</b> page.</li>
             <li><b>Atech:</b> no card needed.</li>
           </ul>
           <p>No credit card? A debit or virtual card usually works, or a teammate can redeem the credits.</p>
